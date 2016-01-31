@@ -8,7 +8,7 @@ ENV GERRIT_HOME /opt/gerrit
 ENV JENKINS_HOME /var/lib/jenkins
 ENV SITE_PATH $GERRIT_HOME/site_path
 
-ENV GERRIT_VERSION 2.8.6.1
+ENV GERRIT_VERSION v2.11.4.11.a14450f
 ENV MYSQLJAVA_VERSION 5.1.21
 ENV BCPROV_VERSION 1.49
 ENV BCPROV_VERSION_T 149
@@ -16,14 +16,13 @@ ENV BCPROVJDK_VERSION jdk15on
 ENV BCPKIX_VERSION $BCPROV_VERSION
 ENV BCPKIXJDK_VERSION $BCPROVJDK_VERSION
 
-ENV GERRIT_URL http://gerrit-releases.storage.googleapis.com/gerrit-${GERRIT_VERSION}.war
+ENV GERRIT_URL http://tarballs.openstack.org/ci/gerrit/gerrit-${GERRIT_VERSION}.war
 ENV MYSQLJAVA_URL http://repo2.maven.org/maven2/mysql/mysql-connector-java/${MYSQLJAVA_VERSION}/mysql-connector-java-${MYSQLJAVA_VERSION}.jar
 ENV BCPROVJAVA_URL http://central.maven.org/maven2/org/bouncycastle/bcprov-${BCPROVJDK_VERSION}/${BCPROV_VERSION}/bcprov-${BCPROVJDK_VERSION}-${BCPROV_VERSION}.jar
 ENV BCPKIXJAVA_URL http://central.maven.org/maven2/org/bouncycastle/bcpkix-${BCPKIXJDK_VERSION}/${BCPKIX_VERSION}/bcpkix-${BCPKIXJDK_VERSION}-${BCPKIX_VERSION}.jar
 
-ENV JENKINS_VERSION 1.580-1.1
-ENV JENKINS_REPO http://pkg.jenkins-ci.org/redhat/jenkins.repo
-ENV JENKINS_REPO_KEY http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
+ENV JENKINS_REPO http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo
+ENV JENKINS_REPO_KEY http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key
 ENV JENKINS_REPO_PLUGINS https://updates.jenkins-ci.org/download/plugins
 ENV JENKINS_GEARMAN_PLUGIN ${JENKINS_REPO_PLUGINS}/gearman-plugin/0.1.1/gearman-plugin.hpi
 
@@ -39,8 +38,8 @@ RUN curl --silent --show-error --retry 12 --retry-delay 10 -L -o $SITE_PATH/lib/
 RUN curl --silent --show-error --retry 12 --retry-delay 10 -L -o $SITE_PATH/lib/bcpkix.$BCPROVJDK_VERSION-$BCPROV_VERSION_T.jar $BCPKIXJAVA_URL
 
 RUN curl --silent --show-error --retry 12 --retry-delay 10 -L -o /etc/yum.repos.d/jenkins.repo $JENKINS_REPO
-RUN rpm --import http://pkg.jenkins-ci.org/redhat/jenkins-ci.org.key
-RUN yum -y install jenkins-${JENKINS_VERSION}
+RUN rpm --import $JENKINS_REPO_KEY
+RUN yum -y install jenkins
 
 RUN mkdir -p $JENKINS_HOME/plugins
 RUN curl --silent --show-error --retry 12 --retry-delay 10 -L -o $JENKINS_HOME/plugins/gearman-plugin.hpi $JENKINS_GEARMAN_PLUGIN
