@@ -2,7 +2,7 @@
 
 set -x
 
-export JAVA_HOME=/usr/lib/jvm/java-1.6.0-openjdk-1.6.0.34.x86_64/jre/
+export JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.95-2.6.4.0.el7_2.x86_64/jre/
 
 /usr/bin/java -jar /opt/gerrit/site_path/gerrit.war init -d /opt/gerrit/site_path --batch --no-auto-start
 
