@@ -39,7 +39,7 @@ RUN curl --silent --show-error --retry 12 --retry-delay 10 -L -o $SITE_PATH/lib/
 
 RUN curl --silent --show-error --retry 12 --retry-delay 10 -L -o /etc/yum.repos.d/jenkins.repo $JENKINS_REPO
 RUN rpm --import $JENKINS_REPO_KEY
-RUN yum -y install jenkins
+RUN yum -y install jenkins-1.580.1-1.1.noarch
 
 RUN mkdir -p $JENKINS_HOME/plugins
 RUN curl --silent --show-error --retry 12 --retry-delay 10 -L -o $JENKINS_HOME/plugins/gearman-plugin.hpi $JENKINS_GEARMAN_PLUGIN
